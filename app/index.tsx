@@ -1,6 +1,6 @@
+import Entypo from '@expo/vector-icons/Entypo';
 import React, { useState } from "react";
 import { Alert, Button, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
-
 interface ITTodo {
     id: number,
     name: string
@@ -40,13 +40,13 @@ export default function App() {
 
     }
     return (
-        <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
                 {/**Header */}
                 <Text style={styles.header}>TaoDo App</Text>
 
                 {/** form*/}
-                <View style={styles.body}>
+                <View style={styles.form}>
                     <TextInput style={styles.todoInput}
                         value={todo}
                         onChangeText={(value) => setTodo(value)} />
@@ -55,7 +55,7 @@ export default function App() {
                 </View>
 
                 {/** list todo */}
-                <View style={styles.body}>
+                <View style={styles.todo}>
                     <FlatList
                         data={listTodo}
                         keyExtractor={item => item.id + ""}
@@ -68,7 +68,10 @@ export default function App() {
                                 <Pressable
                                     style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
                                     onPress={() => deleteTodo(item.id)}>
-                                    <Text style={styles.todoItem}>{item.name}</Text>
+                                    <View style={styles.groupTodo}>
+                                        <Text style={styles.todoItem}>{item.name}</Text>
+                                        <Entypo name="trash" size={24} color="black" />
+                                    </View>
                                 </Pressable>
                             )
                         }}
@@ -76,7 +79,6 @@ export default function App() {
                 </View>
             </View>
         </TouchableWithoutFeedback>
-
     );
 }
 
@@ -85,14 +87,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         paddingHorizontal: 20,
         textAlign: 'center',
-        fontSize: 40
+        fontSize: 40,
     },
     container: {
         paddingTop: 50,
         paddingHorizontal: 20,
         flex: 1,
         backgroundColor: '#fff',
-
+        borderWidth: 1,
+        borderColor: 'red',
     },
     todoInput: {
         borderBottomWidth: 1,
@@ -104,12 +107,28 @@ const styles = StyleSheet.create({
     body: {
         paddingHorizontal: 10,
         marginBottom: 20,
+        flex: 1,
     },
     todoItem: {
         fontSize: 20,
-        marginBottom: 20,
+       // marginBottom: 20,
+      
+    },
+    todo: {
+        flex: 12
+    },
+    form: {
+        flex: 1,
+
+    },
+    groupTodo:{
+        flexDirection: "row",
+        alignItems: "center",
         borderWidth: 1,
         borderStyle: 'dashed',
+        marginBottom: 15,
+        justifyContent: "space-between",
         padding: 10,
+        marginHorizontal: 10,
     }
 })

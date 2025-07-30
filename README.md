@@ -57,4 +57,8 @@ This is a project practice of course HoiDanIT with React Native Expo.
 
 ### Components React Native
 
+### Technical
+Expo Icons
+
+
 
