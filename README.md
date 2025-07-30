@@ -52,3 +52,6 @@ Join our community of developers creating universal apps.
 
 ### This is the author's comment
 This is a project practice of course HoiDanIT with React Native Expo.
+
+### Git
+
