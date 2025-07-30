@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable } from "react-native";
+import { Alert, Button, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 interface ITTodo {
     id: number,
@@ -14,7 +14,20 @@ export default function App() {
     }
     function handelAddTodo() {
         if (!todo) {
-            alert("Is emty")
+            Alert.alert("Lỗi nhập todo",
+                "Không được để trống",
+                [
+                    {
+                        text: 'Ask me later',
+                        onPress: () => console.log('Ask me later pressed'),
+                    },
+                    {
+                        text: 'Hủy',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                    },
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ])
             return;
         }
         setListTodo([...listTodo, { id: randomInteger(1, 10000), name: todo }]);
@@ -27,40 +40,43 @@ export default function App() {
 
     }
     return (
-        <View style={styles.container}>
-            {/**Header */}
-            <Text style={styles.header}>TaoDo App</Text>
+        <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
+            <View style={styles.container}>
+                {/**Header */}
+                <Text style={styles.header}>TaoDo App</Text>
 
-            {/** form*/}
-            <View style={styles.body}>
-                <TextInput style={styles.todoInput}
-                    value={todo}
-                    onChangeText={(value) => setTodo(value)} />
-                <Button title="Add todo"
-                    onPress={() => { handelAddTodo() }} />
-            </View>
+                {/** form*/}
+                <View style={styles.body}>
+                    <TextInput style={styles.todoInput}
+                        value={todo}
+                        onChangeText={(value) => setTodo(value)} />
+                    <Button title="Add todo"
+                        onPress={() => { handelAddTodo() }} />
+                </View>
 
-            {/** list todo */}
-            <View style={styles.body}>
-                <FlatList
-                    data={listTodo}
-                    keyExtractor={item => item.id + ""}
-                    renderItem={({ item }) => {
-                        //Có thể thay View và Pressable
-                        {/**<TouchableOpacity onPress={() => deleteTodo(item.id)}>
+                {/** list todo */}
+                <View style={styles.body}>
+                    <FlatList
+                        data={listTodo}
+                        keyExtractor={item => item.id + ""}
+                        renderItem={({ item }) => {
+                            //Có thể thay View và Pressable
+                            {/**<TouchableOpacity onPress={() => deleteTodo(item.id)}>
                                 <Text style={styles.todoItem}>{item.name}</Text>
                             </TouchableOpacity> */}
-                        return (
-                            <Pressable
-                                style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
-                                onPress={() => deleteTodo(item.id)}>
-                                <Text style={styles.todoItem}>{item.name}</Text>
-                            </Pressable>
-                        )
-                    }}
-                />
+                            return (
+                                <Pressable
+                                    style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
+                                    onPress={() => deleteTodo(item.id)}>
+                                    <Text style={styles.todoItem}>{item.name}</Text>
+                                </Pressable>
+                            )
+                        }}
+                    />
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
+
     );
 }
 
