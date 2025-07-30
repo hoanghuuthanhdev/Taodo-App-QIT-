@@ -1,9 +1,17 @@
-import { View, Text } from "react-native"
+import { globalFont } from "@constants/const";
+import { StyleSheet, Text, View } from "react-native";
+
+const styles = StyleSheet.create({
+    about:{
+        fontSize: 30,
+
+    }
+})
 
 const About = ()=>{
     return (
         <View>
-            <Text>About Screen</Text>
+            <Text style={[styles.about, globalFont.font]}>About Screen</Text>
         </View>
     )
 }

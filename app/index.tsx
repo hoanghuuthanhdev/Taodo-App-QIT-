@@ -4,6 +4,7 @@ import HomeScreen from "@components/Tab/home";
 import { View } from "react-native";
 
 
+import { OPENSANS_REGULAR } from "@constants/const";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -14,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 const App = () => {
     const [loaded, error] = useFonts({
-        'OpenSans-Regular': require('../assets/fonts/OpenSans-Regular.ttf'),
+        [OPENSANS_REGULAR]: require('../assets/fonts/OpenSans-Regular.ttf'),
     });
 
     useEffect(() => {

@@ -59,6 +59,9 @@ This is a project practice of course HoiDanIT with React Native Expo.
 
 ### Technical
 Expo Icons
+Intergation Fonts
+Sử dụng phần Array styles
+ <Text style={[styles.about, globalFont.font]}>About Screen</Text>
 
 
 
