@@ -1,14 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-
-import HomeScreen from "@components/Tab/home";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OPENSANS_REGULAR } from "@constants/const";
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import About from './components/Tab/about';
 // Update the import path to a relative path if the file exists locally
 import AppNavigation from "@components/navigation/app.navigation";
 
@@ -31,10 +29,11 @@ const App = () => {
     }
 
     return (
-        <NavigationContainer>
-            <AppNavigation />
-        </NavigationContainer>
-
+        <SafeAreaView style={{flex:1}}>
+            <NavigationContainer>
+                <AppNavigation />
+            </NavigationContainer>
+        </SafeAreaView>
     );
 };
 
