@@ -1,9 +1,10 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import type { RootStackParamList } from '../../types/navigation';
-
+import CreateModel from './create.model';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -23,15 +24,25 @@ const HomeScreen = () => {
         { id: 5, title: "React Native", star: 5 },
     ]);
 
+    const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <View style={styles.container}>
             <View>
+                <View style={{ alignItems: 'flex-end', marginBottom: 10 }}>
+                    <AntDesign
+                        onPress={() => {
+                            setModalVisible(true);
+                        }}
+                        name="pluscircle" size={35} color="black" />
+                </View>
                 <FlatList
+                    style={{ marginTop: 10 }}
                     data={reviews}
                     keyExtractor={item => item.id + ""}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onPress={()=>navigation.navigate('Detail',item)}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Detail', item)}>
                                 <View>
                                     <Text style={styles.reviewItem}>{item.title}</Text>
                                 </View>
@@ -52,6 +63,9 @@ const HomeScreen = () => {
                     onPress={() => navigation.navigate('About')}
                 />
             </View>
+            <CreateModel
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible} />
         </View>
     )
 }
@@ -73,7 +87,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         // width: '80%',
     },
-    reviewItem:{
+    reviewItem: {
         padding: 15,
         backgroundColor: '#ccc',
         marginBottom: 15,
