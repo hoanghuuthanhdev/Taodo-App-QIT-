@@ -3,15 +3,12 @@ import Detail from "@components/Tab/detail";
 import HomeScreen from "@components/Tab/home";
 import { View } from "react-native";
 
-
 import { OPENSANS_REGULAR } from "@constants/const";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
-
 SplashScreen.preventAutoHideAsync();
-
 
 const App = () => {
     const [loaded, error] = useFonts({
@@ -27,12 +24,14 @@ const App = () => {
     if (!loaded && !error) {
         return null;
     }
+
     return (
-        <View>
+        <View style={{ flex: 1, paddingTop: 50 }}>
             <HomeScreen />
             <Detail />
             <About />
         </View>
-    )
+    );
 }
+
 export default App;
