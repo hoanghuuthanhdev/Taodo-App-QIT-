@@ -115,6 +115,9 @@ npm run reset-project
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
+## Note
+Đây là dự án React Native Expo, khi tạo và cấu hình thì được cài sẵn Expo Router nên khi sử dụng React Native Navigation thì sẽ bị conflict."Fix bằng cách chỉ sử dụng 1 công nghệ"
+
 ## 📚 Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
