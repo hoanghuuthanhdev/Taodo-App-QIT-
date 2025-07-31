@@ -25,7 +25,9 @@ const HomeScreen = () => {
     ]);
 
     const [modalVisible, setModalVisible] = useState(false);
-
+    const addNew = (item :IReview)=>{
+        setReviews([...reviews, item])
+    }
     return (
         <View style={styles.container}>
             <View>
@@ -65,7 +67,8 @@ const HomeScreen = () => {
             </View>
             <CreateModel
                 modalVisible={modalVisible}
-                setModalVisible={setModalVisible} />
+                setModalVisible={setModalVisible} 
+                addNew={addNew}/>
         </View>
     )
 }

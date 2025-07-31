@@ -1,5 +1,6 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Button, Modal, StyleSheet, Text, TextInput, View } from "react-native";
+import { useState } from 'react';
+import { Alert, Button, Modal, StyleSheet, Text, TextInput, View } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -14,15 +15,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,
     },
-    groupInput:{
+    groupInput: {
         marginBottom: 15,
 
     },
-    text:{
+    text: {
         fontSize: 20,
-        fontWeight:"400",
+        fontWeight: "400",
     },
-    input:{
+    input: {
         borderWidth: 1,
         borderColor: '#ccc',
         marginVertical: 10,
@@ -36,10 +37,38 @@ const styles = StyleSheet.create({
 interface IProp {
     modalVisible: boolean;
     setModelVisible: (v: IProp) => void;
+    addNew: any;
+}
+function randomIntFromInterval(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 const CreateModel = (props: any) => {
-    const { modalVisible, setModalVisible } = props;
+    const [title, setTile] = useState("");
+    const [star, setStar] = useState(0);
+    const { modalVisible, setModalVisible, addNew } = props;
+    const handelSubmit = () => {
+        if (!title || star == 0) {
+            Alert.alert('Vui lòng không để trống', 'Điền vào!', [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                { text: 'Dạ', onPress: () => console.log('OK Pressed') },
+            ]);
+            return;
+        }
+        addNew({
+            id: randomIntFromInterval(0,1000),
+            title,
+            star
+        }); 
+        setModalVisible(false);
+        setTile("");
+        setStar(0);
+    }
+
     return (
         <>
             <Modal
@@ -51,22 +80,34 @@ const CreateModel = (props: any) => {
                     {/** header */}
                     <View style={styles.header}>
                         <Text style={{ fontSize: 25 }}> Create a review 11</Text>
-                        <AntDesign  onPress={() => setModalVisible(false)} name="close" size={24} color="black" />
+                        <AntDesign onPress={() => {setModalVisible(false)
+                                                   setStar(0)
+                                                   setTile("")
+                        }} name="close" size={24} color="black" />
                     </View>
                     {/** body */}
                     <View>
                         <View style={styles.groupInput}>
                             <Text style={styles.text}>Noi sung</Text>
-                            <TextInput style={styles.input}/>
+                            <TextInput
+                                value={title}
+                                onChangeText={(v) => setTile(v)}
+                                style={styles.input} />
                         </View>
-                         <View>
+                        <View style={styles.groupInput}>
                             <Text style={styles.text}>Rating</Text>
-                            <TextInput style={styles.input} keyboardType='numeric'/>
+                            <TextInput
+                                value={star.toString()}
+                                onChangeText={v => setStar(Number(v))}
+                                style={styles.input}
+                                keyboardType='numeric'
+                            />
                         </View>
                     </View>
                     {/**footer */}
-                    <View style={{marginTop: 20}}>
-                        <Button title='Add'/>
+                    <View style={{ marginTop: 20 }}>
+                        <Button title='Add'
+                            onPress={() => handelSubmit()} />
                     </View>
                 </View>
             </Modal>
