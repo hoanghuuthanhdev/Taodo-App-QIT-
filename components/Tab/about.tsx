@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 })
 
 const About = ()=>{
-    return (
+    return (    
         <View>
             <Text style={[styles.about, globalFont.font]}>About Screen</Text>
         </View>
