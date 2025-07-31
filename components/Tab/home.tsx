@@ -25,8 +25,6 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Review List: </Text>
-
             <View>
                 <FlatList
                     data={reviews}

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import About from '../Tab/about';
 import Detail from '../Tab/detail';
 import HomeScreen from '../Tab/home';
+import AppHeader from './app.header';
 const HomeLayout = () => {
     const Stack = createNativeStackNavigator();
     return (
@@ -21,7 +22,7 @@ const HomeLayout = () => {
             <Stack.Screen
                 name="Home"
                 component={HomeScreen}
-                options={{ title: 'TaoDo App' }}
+                options={{ header: () => <AppHeader /> }}
             />
             <Stack.Screen
                 name="Detail"
@@ -31,7 +32,7 @@ const HomeLayout = () => {
             <Stack.Screen
                 name="About"
                 component={About}
-                options={{ title: 'Giới thiệu' }}
+                options={{ title: 'Giới thiệu', header: () => <AppHeader /> }}
             />
         </Stack.Navigator>
     )
@@ -43,8 +44,8 @@ const AppNavigation = () => {
 
     return (
         <Drawer.Navigator>
-            <Drawer.Screen name="Home" component={HomeLayout} />
-            <Drawer.Screen name="About" component={About} />
+            <Drawer.Screen name="Home" component={HomeLayout} options={{title:'Trang chủ', header:()=><></>}} />
+            <Drawer.Screen name="About" component={About} options={{title: 'Thông tin', header:()=><AppHeader/>}}/>
         </Drawer.Navigator>
     )
 }
